@@ -12,25 +12,22 @@
 <header><a class="logo" href="#home">Tiki Industries</a><nav><a href="#shop">Shop</a><a href="#info">Info</a><a href="#basket">Basket <span id="basket-count">0</span></a></nav></header>
 <main>
 <section class="hero" id="home"><div><h1>Ride<br>Different.</h1><p>MTB clothing built for the trails, the streets, and everything between. Simple designs. Bold graphics. No unnecessary noise.</p><a class="button" href="#shop">Scroll to shop</a></div></section>
-<section id="shop"><div class="heading"><h2>Shop</h2><p>All products are $20 and available in sizes S, M, L, XL, XXL, and XXXL. Scroll sideways to see everything.</p></div><div class="products">
-<script>
-const products=[
- ['image-1-white-hoodie-back.png','White Graphic Hoodie','A clean white hoodie with a bold Tiki graphic across the back.'],
- ['image-2-black-hoodie-front.png','Black Logo Hoodie','A black pullover hoodie with the Tiki Industries logo on the chest.'],
- ['image-3-pink-shirt-back.png','Pink Back Graphic T-Shirt','A pink T-shirt with a large black graphic for a standout trail look.'],
- ['image-4-black-hoodie-back.png','Black Gold Back Hoodie','A black hoodie with a large gold-and-orange back graphic.'],
- ['image-5-pink-shirt-front.png','Pink Logo T-Shirt','A simple pink T-shirt with a small front Tiki logo.'],
- ['image-6-white-shirt-back.png','White Back Graphic T-Shirt','A white T-shirt with a bold black Tiki graphic across the back.'],
- ['image-7-white-hoodie-front.png','White Logo Hoodie','A white pullover hoodie with a small front logo and kangaroo pocket.']
-];
-const sizes=['S','M','L','XL','XXL','XXXL'];
-document.write(products.map((p,i)=>`<article class="card"><div class="photo"><img src="images/${p[0]}" alt="${p[1]}"></div><div class="details"><h3>${p[1]}</h3><p>${p[2]} Made for riding and everyday wear.</p><select class="size" id="size-${i}"><option value="">Choose a size</option>${sizes.map(s=>`<option>${s}</option>`).join('')}</select><div class="bottom"><span class="price">$20</span><button class="add" onclick="addProduct('${p[1]}',${i})">Add to basket</button></div></div></article>`).join(''));
-</script>
-</div></section>
+<section id="shop"><div class="heading"><h2>Shop</h2><p>All products are $20 and available in sizes S, M, L, XL, XXL, and XXXL. Scroll sideways to see everything.</p></div><div class="products" id="products"></div></section>
 <section class="info" id="info"><div class="info-grid"><div><h2>About Tiki Industries</h2><p>Tiki Industries is an MTB clothing brand made for riders who want comfortable clothing with bold designs. Our pieces are made for riding, relaxing, and everyday wear.</p></div><div class="info-box"><h3>Our approach</h3><ul><li>MTB-inspired clothing</li><li>Bold graphic designs</li><li>Comfortable everyday fits</li><li>Sizes S through XXXL</li><li>Every product is $20</li></ul></div></div></section>
 <section class="basket" id="basket"><div class="heading"><h2>Your Basket</h2><p>Your basket stays saved in this browser.</p></div><div id="basket-items" class="basket-items"><p class="empty">Your basket is currently empty.</p></div><div class="total"><span>Total</span><span id="basket-total">$0</span></div></section>
 </main><footer>© 2026 Tiki Industries. All rights reserved.</footer>
 <script>
+const products=[
+ ['image-1-white-hoodie-back.png.JPG','White Graphic Hoodie','A clean white hoodie with a bold Tiki graphic across the back.'],
+ ['image-2-black-hoodie-front.png.JPG','Black Logo Hoodie','A black pullover hoodie with the Tiki Industries logo on the chest.'],
+ ['image-3-pink-shirt-back.png.JPG','Pink Back Graphic T-Shirt','A pink T-shirt with a large black graphic for a standout trail look.'],
+ ['image-4-black-hoodie-back.png.JPG','Black Gold Back Hoodie','A black hoodie with a large gold-and-orange back graphic.'],
+ ['image-5-pink-shirt-front.png.JPG','Pink Logo T-Shirt','A simple pink T-shirt with a small front Tiki logo.'],
+ ['image-6-white-shirt-back.png.JPG','White Back Graphic T-Shirt','A white T-shirt with a bold black Tiki graphic across the back.'],
+ ['image-7-white-hoodie-front.png.JPG','White Logo Hoodie','A white pullover hoodie with a small front logo and kangaroo pocket.']
+];
+const sizes=['S','M','L','XL','XXL','XXXL'];
+document.getElementById('products').innerHTML=products.map((p,i)=>`<article class="card"><div class="photo"><img src="${p[0]}" alt="${p[1]}"></div><div class="details"><h3>${p[1]}</h3><p>${p[2]} Made for riding and everyday wear.</p><select class="size" id="size-${i}"><option value="">Choose a size</option>${sizes.map(s=>`<option>${s}</option>`).join('')}</select><div class="bottom"><span class="price">$20</span><button class="add" onclick="addProduct('${p[1]}',${i})">Add to basket</button></div></div></article>`).join('');
 let basket=JSON.parse(localStorage.getItem('tikiBasket')||'[]');
 function save(){localStorage.setItem('tikiBasket',JSON.stringify(basket))}
 function addProduct(name,index){const size=document.getElementById(`size-${index}`).value;if(!size){alert('Please choose a size first.');return}basket.push({name,size,price:20});save();renderBasket();document.getElementById('basket').scrollIntoView({behavior:'smooth'})}
