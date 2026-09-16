@@ -1,0 +1,799 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tiki Industries | MTB Clothing</title>
+
+  <style>
+    :root {
+      --black: #111;
+      --dark: #222;
+      --gray: #777;
+      --light-gray: #eee;
+      --white: #fff;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      background: var(--white);
+      color: var(--black);
+      line-height: 1.5;
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 6%;
+      background: rgba(255, 255, 255, 0.96);
+      border-bottom: 1px solid var(--light-gray);
+      backdrop-filter: blur(8px);
+    }
+
+    .logo {
+      color: var(--black);
+      font-size: 1.1rem;
+      font-weight: bold;
+      letter-spacing: 2px;
+      text-decoration: none;
+      text-transform: uppercase;
+    }
+
+    nav {
+      display: flex;
+      gap: 25px;
+    }
+
+    nav a {
+      color: var(--black);
+      font-size: 0.85rem;
+      text-decoration: none;
+    }
+
+    nav a:hover {
+      color: var(--gray);
+    }
+
+    #basket-count {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 18px;
+      height: 18px;
+      padding: 0 5px;
+      border-radius: 50%;
+      background: var(--black);
+      color: var(--white);
+      font-size: 0.7rem;
+    }
+
+    .hero {
+      min-height: 78vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 80px 6%;
+      background: var(--black);
+      color: var(--white);
+      text-align: center;
+    }
+
+    .hero-content {
+      max-width: 800px;
+    }
+
+    .hero h1 {
+      margin-bottom: 20px;
+      font-size: clamp(3.5rem, 11vw, 8rem);
+      line-height: 0.9;
+      letter-spacing: -6px;
+      text-transform: uppercase;
+    }
+
+    .hero p {
+      max-width: 600px;
+      margin: 0 auto 30px;
+      color: #ccc;
+      font-size: 1.05rem;
+    }
+
+    .button {
+      display: inline-block;
+      padding: 14px 26px;
+      border: 1px solid var(--white);
+      background: var(--white);
+      color: var(--black);
+      font-size: 0.8rem;
+      text-decoration: none;
+      text-transform: uppercase;
+      transition: 0.2s ease;
+    }
+
+    .button:hover {
+      background: transparent;
+      color: var(--white);
+    }
+
+    section {
+      padding: 90px 6%;
+      scroll-margin-top: 80px;
+    }
+
+    .section-heading {
+      display: flex;
+      justify-content: space-between;
+      align-items: end;
+      gap: 30px;
+      margin-bottom: 35px;
+    }
+
+    .section-heading h2 {
+      font-size: 2.5rem;
+      letter-spacing: -1px;
+    }
+
+    .section-heading p {
+      max-width: 430px;
+      color: var(--gray);
+    }
+
+    .shop {
+      background: var(--white);
+    }
+
+    .products {
+      display: flex;
+      gap: 24px;
+      overflow-x: auto;
+      padding-bottom: 18px;
+      scroll-snap-type: x mandatory;
+    }
+
+    .products::-webkit-scrollbar {
+      height: 8px;
+    }
+
+    .products::-webkit-scrollbar-thumb {
+      background: var(--black);
+    }
+
+    .product-card {
+      flex: 0 0 310px;
+      overflow: hidden;
+      border: 1px solid var(--light-gray);
+      background: var(--white);
+      scroll-snap-align: start;
+    }
+
+    .product-image {
+      height: 330px;
+      overflow: hidden;
+      background: var(--light-gray);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .product-image img {
+      width: 100%;
+      height: 100%;
+      display: block;
+      object-fit: contain;
+    }
+
+    .product-info {
+      padding: 20px;
+    }
+
+    .product-info h3 {
+      margin-bottom: 8px;
+      font-size: 1rem;
+    }
+
+    .product-info p {
+      min-height: 68px;
+      margin-bottom: 15px;
+      color: var(--gray);
+      font-size: 0.9rem;
+    }
+
+    .size-select {
+      width: 100%;
+      margin-bottom: 15px;
+      padding: 10px;
+      border: 1px solid var(--light-gray);
+      background: var(--white);
+      color: var(--black);
+    }
+
+    .product-bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .price {
+      font-weight: bold;
+    }
+
+    .add-button {
+      padding: 10px 13px;
+      border: 1px solid var(--black);
+      background: var(--black);
+      color: var(--white);
+      cursor: pointer;
+      font-size: 0.72rem;
+      text-transform: uppercase;
+    }
+
+    .add-button:hover {
+      background: var(--white);
+      color: var(--black);
+    }
+
+    .info {
+      background: var(--light-gray);
+    }
+
+    .info-content {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 70px;
+      align-items: center;
+    }
+
+    .info h2 {
+      margin-bottom: 20px;
+      font-size: 2.5rem;
+    }
+
+    .info p {
+      max-width: 600px;
+      color: #4f4f4f;
+    }
+
+    .info-box {
+      padding: 35px;
+      background: var(--black);
+      color: var(--white);
+    }
+
+    .info-box h3 {
+      margin-bottom: 15px;
+    }
+
+    .info-box ul {
+      list-style: none;
+    }
+
+    .info-box li {
+      padding: 11px 0;
+      border-bottom: 1px solid #444;
+      color: #ccc;
+    }
+
+    .basket {
+      min-height: 400px;
+      background: var(--white);
+    }
+
+    .basket-items {
+      max-width: 800px;
+      margin-bottom: 25px;
+    }
+
+    .basket-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 18px 0;
+      border-bottom: 1px solid var(--light-gray);
+    }
+
+    .basket-item small {
+      display: block;
+      color: var(--gray);
+    }
+
+    .remove-button {
+      border: 0;
+      background: transparent;
+      color: var(--gray);
+      cursor: pointer;
+      text-decoration: underline;
+    }
+
+    .basket-total {
+      display: flex;
+      justify-content: space-between;
+      max-width: 800px;
+      padding-top: 20px;
+      font-weight: bold;
+    }
+
+    .empty-basket {
+      color: var(--gray);
+    }
+
+    footer {
+      padding: 30px 6%;
+      background: var(--black);
+      color: #999;
+      font-size: 0.8rem;
+      text-align: center;
+    }
+
+    @media (max-width: 700px) {
+      header {
+        padding: 17px 5%;
+      }
+
+      nav {
+        gap: 12px;
+      }
+
+      nav a {
+        font-size: 0.72rem;
+      }
+
+      .hero h1 {
+        letter-spacing: -3px;
+      }
+
+      section {
+        padding: 65px 5%;
+      }
+
+      .section-heading,
+      .info-content {
+        display: block;
+      }
+
+      .section-heading p {
+        margin-top: 12px;
+      }
+
+      .info-box {
+        margin-top: 35px;
+      }
+
+      .product-card {
+        flex-basis: 285px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <a class="logo" href="#home">Tiki Industries</a>
+
+    <nav>
+      <a href="#shop">Shop</a>
+      <a href="#info">Info</a>
+      <a href="#basket">
+        Basket <span id="basket-count">0</span>
+      </a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero" id="home">
+      <div class="hero-content">
+        <h1>Ride<br />Different.</h1>
+
+        <p>
+          MTB clothing built for the trails, the streets, and everything
+          between. Simple designs. Bold graphics. No unnecessary noise.
+        </p>
+
+        <a class="button" href="#shop">Scroll to shop</a>
+      </div>
+    </section>
+
+    <section class="shop" id="shop">
+      <div class="section-heading">
+        <h2>Shop</h2>
+        <p>
+          All products are $20 and available in sizes S, M, L, XL, XXL, and XXXL.
+          Scroll sideways to see every product.
+        </p>
+      </div>
+
+      <div class="products">
+        <article class="product-card">
+          <div class="product-image">
+            <img
+              src="images/image-1-white-hoodie-back.png"
+              alt="White Tiki Industries hoodie with black back graphic"
+            />
+          </div>
+
+          <div class="product-info">
+            <h3>White Graphic Hoodie</h3>
+            <p>
+              A clean white hoodie with a bold Tiki graphic across the back,
+              made for cool rides and everyday wear.
+            </p>
+
+            <select class="size-select" id="size-white-hoodie">
+              <option value="">Choose a size</option>
+              <option>S</option>
+              <option>M</option>
+              <option>L</option>
+              <option>XL</option>
+              <option>XXL</option>
+              <option>XXXL</option>
+            </select>
+
+            <div class="product-bottom">
+              <span class="price">$20</span>
+              <button
+                class="add-button"
+                onclick="addProduct('White Graphic Hoodie', 'size-white-hoodie')"
+              >
+                Add to basket
+              </button>
+            </div>
+          </div>
+        </article>
+
+        <article class="product-card">
+          <div class="product-image">
+            <img
+              src="images/image-2-black-hoodie-front.png"
+              alt="Black Tiki Industries hoodie with gold front logo"
+            />
+          </div>
+
+          <div class="product-info">
+            <h3>Black Logo Hoodie</h3>
+            <p>
+              A black pullover hoodie featuring the Tiki Industries logo on
+              the chest and a relaxed MTB-ready fit.
+            </p>
+
+            <select class="size-select" id="size-black-front">
+              <option value="">Choose a size</option>
+              <option>S</option>
+              <option>M</option>
+              <option>L</option>
+              <option>XL</option>
+              <option>XXL</option>
+              <option>XXXL</option>
+            </select>
+
+            <div class="product-bottom">
+              <span class="price">$20</span>
+              <button
+                class="add-button"
+                onclick="addProduct('Black Logo Hoodie', 'size-black-front')"
+              >
+                Add to basket
+              </button>
+            </div>
+          </div>
+        </article>
+
+        <article class="product-card">
+          <div class="product-image">
+            <img
+              src="images/image-3-pink-shirt-back.png"
+              alt="Pink Tiki Industries T-shirt with black back graphic"
+            />
+          </div>
+
+          <div class="product-info">
+            <h3>Pink Back Graphic T-Shirt</h3>
+            <p>
+              A pink T-shirt with a large black graphic on the back for a
+              standout look on and off the bike.
+            </p>
+
+            <select class="size-select" id="size-pink-back">
+              <option value="">Choose a size</option>
+              <option>S</option>
+              <option>M</option>
+              <option>L</option>
+              <option>XL</option>
+              <option>XXL</option>
+              <option>XXXL</option>
+            </select>
+
+            <div class="product-bottom">
+              <span class="price">$20</span>
+              <button
+                class="add-button"
+                onclick="addProduct('Pink Back Graphic T-Shirt', 'size-pink-back')"
+              >
+                Add to basket
+              </button>
+            </div>
+          </div>
+        </article>
+
+        <article class="product-card">
+          <div class="product-image">
+            <img
+              src="images/image-4-black-hoodie-back.png"
+              alt="Black Tiki Industries hoodie with large gold back graphic"
+            />
+          </div>
+
+          <div class="product-info">
+            <h3>Black Gold Back Hoodie</h3>
+            <p>
+              A black hoodie with a large gold-and-orange graphic on the back,
+              designed to bring extra energy to every ride.
+            </p>
+
+            <select class="size-select" id="size-black-back">
+              <option value="">Choose a size</option>
+              <option>S</option>
+              <option>M</option>
+              <option>L</option>
+              <option>XL</option>
+              <option>XXL</option>
+              <option>XXXL</option>
+            </select>
+
+            <div class="product-bottom">
+              <span class="price">$20</span>
+              <button
+                class="add-button"
+                onclick="addProduct('Black Gold Back Hoodie', 'size-black-back')"
+              >
+                Add to basket
+              </button>
+            </div>
+          </div>
+        </article>
+
+        <article class="product-card">
+          <div class="product-image">
+            <img
+              src="images/image-5-pink-shirt-front.png"
+              alt="Pink Tiki Industries T-shirt with small front logo"
+            />
+          </div>
+
+          <div class="product-info">
+            <h3>Pink Logo T-Shirt</h3>
+            <p>
+              A simple pink T-shirt with a small front Tiki logo and a
+              comfortable everyday fit.
+            </p>
+
+            <select class="size-select" id="size-pink-front">
+              <option value="">Choose a size</option>
+              <option>S</option>
+              <option>M</option>
+              <option>L</option>
+              <option>XL</option>
+              <option>XXL</option>
+              <option>XXXL</option>
+            </select>
+
+            <div class="product-bottom">
+              <span class="price">$20</span>
+              <button
+                class="add-button"
+                onclick="addProduct('Pink Logo T-Shirt', 'size-pink-front')"
+              >
+                Add to basket
+              </button>
+            </div>
+          </div>
+        </article>
+
+        <article class="product-card">
+          <div class="product-image">
+            <img
+              src="images/image-6-white-shirt-back.png"
+              alt="White Tiki Industries T-shirt with black back graphic"
+            />
+          </div>
+
+          <div class="product-info">
+            <h3>White Back Graphic T-Shirt</h3>
+            <p>
+              A white T-shirt with a bold black Tiki graphic across the back,
+              built for a clean trail-to-street style.
+            </p>
+
+            <select class="size-select" id="size-white-shirt">
+              <option value="">Choose a size</option>
+              <option>S</option>
+              <option>M</option>
+              <option>L</option>
+              <option>XL</option>
+              <option>XXL</option>
+              <option>XXXL</option>
+            </select>
+
+            <div class="product-bottom">
+              <span class="price">$20</span>
+              <button
+                class="add-button"
+                onclick="addProduct('White Back Graphic T-Shirt', 'size-white-shirt')"
+              >
+                Add to basket
+              </button>
+            </div>
+          </div>
+        </article>
+
+        <article class="product-card">
+          <div class="product-image">
+            <img
+              src="images/image-7-white-hoodie-front.png"
+              alt="White Tiki Industries hoodie with small front logo"
+            />
+          </div>
+
+          <div class="product-info">
+            <h3>White Logo Hoodie</h3>
+            <p>
+              A white pullover hoodie with a small front logo, kangaroo pocket,
+              and comfortable fit for everyday use.
+            </p>
+
+            <select class="size-select" id="size-white-front">
+              <option value="">Choose a size</option>
+              <option>S</option>
+              <option>M</option>
+              <option>L</option>
+              <option>XL</option>
+              <option>XXL</option>
+              <option>XXXL</option>
+            </select>
+
+            <div class="product-bottom">
+              <span class="price">$20</span>
+              <button
+                class="add-button"
+                onclick="addProduct('White Logo Hoodie', 'size-white-front')"
+              >
+                Add to basket
+              </button>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="info" id="info">
+      <div class="info-content">
+        <div>
+          <h2>About Tiki Industries</h2>
+          <p>
+            Tiki Industries is an MTB clothing brand made for riders who want
+            comfortable clothing with bold designs. Our pieces are made for
+            riding, relaxing, and everyday wear.
+          </p>
+        </div>
+
+        <div class="info-box">
+          <h3>Our approach</h3>
+          <ul>
+            <li>MTB-inspired clothing</li>
+            <li>Bold graphic designs</li>
+            <li>Comfortable everyday fits</li>
+            <li>Sizes S through XXXL</li>
+            <li>Every product is $20</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="basket" id="basket">
+      <div class="section-heading">
+        <h2>Your Basket</h2>
+        <p>Choose a product size before adding an item to your basket.</p>
+      </div>
+
+      <div id="basket-items" class="basket-items">
+        <p class="empty-basket">Your basket is currently empty.</p>
+      </div>
+
+      <div class="basket-total">
+        <span>Total</span>
+        <span id="basket-total">$0</span>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    © 2026 Tiki Industries. All rights reserved.
+  </footer>
+
+  <script>
+    let basket = JSON.parse(localStorage.getItem("tikiBasket")) || [];
+
+    function addProduct(name, selectId) {
+      const size = document.getElementById(selectId).value;
+
+      if (!size) {
+        alert("Please choose a size first.");
+        return;
+      }
+
+      basket.push({
+        name: name,
+        size: size,
+        price: 20
+      });
+
+      saveBasket();
+      updateBasket();
+
+      document.querySelector("#basket").scrollIntoView({
+        behavior: "smooth"
+      });
+    }
+
+    function removeFromBasket(index) {
+      basket.splice(index, 1);
+      saveBasket();
+      updateBasket();
+    }
+
+    function saveBasket() {
+      localStorage.setItem("tikiBasket", JSON.stringify(basket));
+    }
+
+    function updateBasket() {
+      const items = document.getElementById("basket-items");
+      const count = document.getElementById("basket-count");
+      const total = document.getElementById("basket-total");
+
+      count.textContent = basket.length;
+
+      if (basket.length === 0) {
+        items.innerHTML =
+          '<p class="empty-basket">Your basket is currently empty.</p>';
+        total.textContent = "$0";
+        return;
+      }
+
+      let basketTotal = 0;
+
+      items.innerHTML = basket.map((item, index) => {
+        basketTotal += item.price;
+
+        return `
+          <div class="basket-item">
+            <div>
+              <strong>${item.name}</strong>
+              <small>Size: ${item.size} — $${item.price}</small>
+            </div>
+
+            <button
+              class="remove-button"
+              onclick="removeFromBasket(${index})"
+            >
+              Remove
+            </button>
+          </div>
+        `;
+      }).join("");
+
+      total.textContent = `$${basketTotal}`;
+    }
+
+    updateBasket();
+  </script>
+</body>
+</html>
