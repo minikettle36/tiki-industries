@@ -8,25 +8,12 @@
 </head>
 <body>
 <header><a class="logo" href="index.html"><span>T</span>Tiki Industries</a><nav><a href="shop.html">Shop</a><a href="info.html">Info</a><a href="basket.html" class="nav-basket">Basket <span class="basket-count" id="basket-count">0</span></a></nav></header>
-<main><section class="hero"><div><h1>Ride<br>Different.</h1><p>MTB clothing built for the trails, the streets, and everything between. Simple designs. Bold graphics. No unnecessary noise.</p><a class="button" href="shop.html">Shop now</a></div><div class="hero-image"><img id="hero-image" src="babybluehoodiefront.JPG" alt="Baby Blue OG Hoodie"></div></section><section class="featured"><h2>Featured products</h2><div class="feature-grid" id="featured-products"></div></section></main>
+<main><section class="hero"><div><h1>Ride<br>Different.</h1><p>MTB clothing built for the trails, the streets, and everything between. Simple designs. Bold graphics. No unnecessary noise.</p><a class="button" href="shop.html">Shop now</a></div><div class="hero-image"><img id="hero-image" src="brownhoodiefront.JPG" alt="Brown OG Hoodie"></div></section><section class="featured"><h2>Featured products</h2><div class="feature-grid" id="featured-products"></div></section></main>
 <footer>© 2026 Tiki Industries. All rights reserved.</footer>
 <script>
-const products=[{name:'OG Hoodie',description:'The original Tiki Industries hoodie.',image:'babybluehoodiefront.JPG',alt:'Baby Blue OG Hoodie'},{name:'The Nuclear Hoodie',description:'A black hoodie with the bold Nuclear graphic.',image:'image-2-black-hoodie-front.png.JPG',alt:'The Nuclear Hoodie'},{name:'OG T-Shirt',description:'The original Tiki Industries graphic T-shirt.',image:'white%20shirt%20front.JPG',alt:'White OG T-Shirt'}];
-const heroImages=[
-  {src:'babybluehoodiefront.JPG',alt:'Baby Blue OG Hoodie'},
-  {src:'brownhoodiefront.JPG',alt:'Brown OG Hoodie'},
-  {src:'grayhoodiefront.JPG',alt:'Gray OG Hoodie'},
-  {src:'khakigrayhoodiefront.JPG',alt:'Khaki Gray OG Hoodie'},
-  {src:'lightsunscreenhoodiefront.JPG',alt:'Light Sunscreen OG Hoodie'},
-  {src:'image-2-black-hoodie-front.png.JPG',alt:'The Nuclear Hoodie'},
-  {src:'blueshirtfront.JPG',alt:'Blue OG T-Shirt'},
-  {src:'brownshirtfront.JPG',alt:'Brown OG T-Shirt'},
-  {src:'grayshirtfront.JPG',alt:'Gray OG T-Shirt'},
-  {src:'pinkshirtfront.JPG',alt:'Pink OG T-Shirt'},
-  {src:'white%20shirt%20front.JPG',alt:'White OG T-Shirt'}
-];
-const basket=JSON.parse(localStorage.getItem('tikiBasket')||'[]');document.getElementById('basket-count').textContent=basket.length;document.getElementById('featured-products').innerHTML=products.map(p=>`<a class="feature-card" href="shop.html"><div class="feature-photo"><img src="${p.image}" alt="${p.alt}"></div><div><h3>${p.name}</h3><p>${p.description}</p></div></a>`).join('');
-let heroIndex=0;const heroImage=document.getElementById('hero-image');setInterval(()=>{heroImage.style.opacity='0';setTimeout(()=>{heroIndex=(heroIndex+1)%heroImages.length;heroImage.src=heroImages[heroIndex].src;heroImage.alt=heroImages[heroIndex].alt;heroImage.style.opacity='1'},450)},3500);
+const products=[{name:'OG Hoodie',description:'The original Tiki Industries hoodie.',image:'whitehoodiefront.JPG',alt:'White OG Hoodie'},{name:'The Nuclear Hoodie',description:'A black hoodie with the bold Nuclear graphic.',image:'image-2-black-hoodie-front.png.JPG',alt:'The Nuclear Hoodie'},{name:'OG T-Shirt',description:'The original Tiki Industries graphic T-shirt.',image:'white%20shirt%20front.JPG',alt:'White OG T-Shirt'}];
+const heroImages=[{src:'brownhoodiefront.JPG',alt:'Brown OG Hoodie'},{src:'grayhoodiefront.JPG',alt:'Gray OG Hoodie'},{src:'khakigrayhoodiefront.JPG',alt:'Khaki Gray OG Hoodie'},{src:'lightsunscreenhoodiefront.JPG',alt:'Light Sunscreen OG Hoodie'},{src:'image-2-black-hoodie-front.png.JPG',alt:'The Nuclear Hoodie'},{src:'blueshirtfront.JPG',alt:'Blue OG T-Shirt'},{src:'brownshirtfront.JPG',alt:'Brown OG T-Shirt'},{src:'grayshirtfront.JPG',alt:'Gray OG T-Shirt'},{src:'pinkshirtfront.JPG',alt:'Pink OG T-Shirt'},{src:'white%20shirt%20front.JPG',alt:'White OG T-Shirt'}];
+const basket=JSON.parse(localStorage.getItem('tikiBasket')||'[]');document.getElementById('basket-count').textContent=basket.length;document.getElementById('featured-products').innerHTML=products.map(p=>`<a class="feature-card" href="shop.html"><div class="feature-photo"><img src="${p.image}" alt="${p.alt}"></div><div><h3>${p.name}</h3><p>${p.description}</p></div></a>`).join('');let heroIndex=0;const heroImage=document.getElementById('hero-image');setInterval(()=>{heroImage.style.opacity='0';setTimeout(()=>{heroIndex=(heroIndex+1)%heroImages.length;heroImage.src=heroImages[heroIndex].src;heroImage.alt=heroImages[heroIndex].alt;heroImage.style.opacity='1'},450)},3500);
 </script>
 </body>
 </html>
